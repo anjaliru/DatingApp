@@ -8,13 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class TestErrorsComponent implements OnInit {
 
   baseUrl = 'https://localhost:5001/api';
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
-  get404Error(){
-    this.http.ger(this.baseUrl+)
-  }
+  
 
 }

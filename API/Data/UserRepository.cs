@@ -24,18 +24,10 @@ private readonly IMapper _mapper;
         {
            return await _context.Users
            .Where(x => x.UserName == username)
-           .Select(user => new MemberDto
-           {
-               Id=user.Id,
-               UserName = user.UserName
-
-           }).SingleOrDefaultAsync();
+          .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
+          .SingleOrDefaultAsync();
         }
 
-        public Task<MemberDto> GetMemberAsync()
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<IEnumerable<MemberDto>> GetMembersAsync()
         {
@@ -44,19 +36,23 @@ private readonly IMapper _mapper;
             .ToListAsync();
         }
 
-        public async Task<AppUser> GetUserByIdAsync(int id)
+        public Task<AppUser> GetUserByIdAsync(int id)
         {
-           return await _context.Users.FindAsync(id);
+            throw new NotImplementedException();
         }
 
         public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
-            return await _context.Users.SingleOrDefaultAsync(x => x.UserName == username);
+            return await _context.Users
+            .Include(p => p.Photos)
+            .SingleOrDefaultAsync(x => x.UserName == username);
         }
 
         public async Task<IEnumerable<AppUser>> GetUsersAsync()
         {
-          return await _context.Users.ToListAsync();
+          return await _context.Users
+          .Include(p => p.Photos)
+          .ToListAsync();
         }
 
         public async Task<bool> SaveAllAsync()

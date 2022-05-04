@@ -40,7 +40,5 @@ namespace API.Entities
 
         public ICollection<Photo> Photos { get; set; }
 
-
-
     }
 }
