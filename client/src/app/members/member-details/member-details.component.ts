@@ -30,7 +30,7 @@ export class MemberDetailsComponent implements OnInit {
       preview: false
     }
     ]
-
+    
   }
 
   getImages(): NgxGalleryImage[] {
